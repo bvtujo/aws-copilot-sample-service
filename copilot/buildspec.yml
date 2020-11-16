@@ -1,5 +1,9 @@
 # Buildspec runs in the build stage of your pipeline.
 version: 0.2
+env:
+  parameter-store:
+    DOCKERHUB_USERNAME: DOCKERHUB_USERNAME
+    DOCKERHUB_PASSWORD: DOCKERHUB_PASSWORD
 phases:
   install:
     runtime-versions:
@@ -12,6 +16,7 @@ phases:
       - wget https://ecs-cli-v2-release.s3.amazonaws.com/copilot-linux-v0.6.0
       - mv ./copilot-linux-v0.6.0 ./copilot-linux
       - chmod +x ./copilot-linux
+      - echo $DOCKERHUB_PASSWORD | docker login --password-stdin -u $DOCKERHUB_USERNAME
   build:
     commands:
       - echo "Run your tests"
