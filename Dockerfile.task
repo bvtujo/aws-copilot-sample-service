@@ -1,0 +1,7 @@
+FROM ubuntu:latest
+
+RUN apt-get update && apt-get install -y curl
+
+RUN apt-get update && apt-get install -y apache2-utils
+
+CMD ab -n 10 -c 10 http://fe.$COPILOT_SVC_DISCOVERY_ENDPOINT/
